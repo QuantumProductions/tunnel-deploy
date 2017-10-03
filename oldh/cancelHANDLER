@@ -1,0 +1,15 @@
+-module(cancel_join_handler).
+-export([init/2]).
+
+init(Req0, Opts) ->
+  MainDoor = whereis(main_door),
+  Name = cowboy_req:binding(name, Req0),
+  Auth = cowboy_req:binding(auth, Req0),
+  CancelRes = s:s(MainDoor, {cancel, Name, Auth}),
+
+  % todo: state by ok/error tuple ele 1
+  Res = io_lib:format("~p",[CancelRes]),
+  Req = cowboy_req:reply(200, #{
+          <<"content-type">> => <<"text/plain">>
+  }, Res, Req0),
+  {ok, Req, Opts}.

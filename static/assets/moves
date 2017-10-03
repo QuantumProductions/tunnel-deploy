@@ -1,0 +1,30 @@
+makeMove(r) { 
+    if (r.x > 5) {
+      r.x = 5;
+    }
+    if (r.y > 5) {
+      r.y = 5;
+    }
+    if (r.x < 0) {
+      r.x = 0;
+    }
+    if (r.y < 0) {
+      r.y = 0;
+    }
+    let coords = "" + r.x + "/" + r.y;
+    let url = "tables/" + this.status.table_id + "/play/" + this.name + "/" + this.auth + "/" + this.team + "/" + "take/" + coords;
+    
+    // console.log(url);
+    http.get({
+      url: "http://localhost:8080/" + url,
+      onload: function() {
+        // console.log("move response" + this.responseText);
+        // window.display.assignState(JSON.parse(JSON.parse(this.responseText)));
+      }
+    });
+  }
+
+
+  onMouseUp(e) {
+    console.log(e);
+  }

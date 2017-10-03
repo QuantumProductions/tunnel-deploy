@@ -1,0 +1,8 @@
+get status:
+/status/player_name
+searching -> waiting for player
+ console.log(todo: refactor commandable class of current state)
+!playing => tablepid: searching == table pid
+  update server to use playing => tablepid 
+play using /tables/:table_pid/play
+

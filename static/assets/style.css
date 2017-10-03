@@ -1,0 +1,36 @@
+body {
+  background-color: #4c5959;
+  margin: 0;
+}
+*{
+  box-sizing: border-box;
+}
+.container {
+  display:flex;
+  height:100vh;
+  width:100vw;
+}
+
+.side {
+  flex: 1 1 25%;
+  width: 25%;
+}
+.side canvas {
+  height: 100vh;
+  width: 100%;
+  float: left;
+}
+
+#board {
+  background:#4c5959;
+  width: 50vw;
+  height: 100%;
+}
+
+#info {
+  background:#3498db;
+}
+
+#actions {
+  background:#1abc9c;
+}

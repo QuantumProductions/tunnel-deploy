@@ -1,0 +1,59 @@
+<html>
+<center>
+<body bgcolor="#4c5959">
+<link rel="stylesheet" href="style.css">
+<!-- <center> -->
+
+<div class="container">
+  <div class="side">
+    <canvas id="info"></canvas>
+  </div>
+  <canvas id="board"></canvas>
+  <div class="side">
+    <canvas id="actions"></canvas>
+  </div>
+</div>
+<script src="script.js"></script>
+<script src="http.min.js"></script>
+<script src="color.js"></script>
+<script src="engine.js"></script>
+<script src="player.js"></script>
+<script src="callback.js"></script>
+<script src="display.js"></script>
+<script src="view.js"></script>
+<script src="board.js"></script>
+<script src="clock.js"></script>
+<script src="actions.js"></script>
+<script src="tile.js"></script>
+<script src="info.js"></script>
+<script src="engine_client.js"></script>
+<script src="client.js"></script>
+<script>
+
+let board = document.getElementById("board");
+let actions = document.getElementById("actions");
+let info = document.getElementById("info");
+function resize() {
+  var height = window.innerHeight;
+  
+  board.width = height;
+  board.height = height;
+  board.style.width = height+'px';
+  board.style.height = height+'px';
+
+  actions.width = height / 4;
+  actions.height = height;
+
+  info.width = height / 4;
+  info.height = height;
+}
+
+window.addEventListener('load', start, false);
+
+function start() {
+  resize();
+  window.client = new GameClient();
+}
+window.addEventListener('resize', resize, false);
+
+</script>

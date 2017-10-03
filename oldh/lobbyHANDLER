@@ -1,0 +1,12 @@
+-module(lobby_handler).
+-export([init/2]).
+
+init(Req0, Opts) ->
+  MainDoor = whereis(main_door),
+  Info = s:s(MainDoor, info),
+
+  Res = io_lib:format("~p",[Info]),
+  Req = cowboy_req:reply(200, #{
+          <<"content-type">> => <<"text/plain">>
+  }, Res, Req0),
+  {ok, Req, Opts}.

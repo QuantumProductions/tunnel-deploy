@@ -1,0 +1,43 @@
+-module(play_handler).
+-export([init/2]).
+
+valid(Team, Action) ->
+
+  try lists:member(Team, ["x", "o"]) andalso 
+    lists:member(Action, ["take", "east", "north", "south", "west"])
+  catch
+    Error -> {error, caught, Error};
+    E1:E2 -> {error, E1, E2}
+  end.
+
+init(Req0, Opts) ->
+  MainDoor = whereis(main_door),
+
+  TablePidString = binary_to_list(cowboy_req:binding(table_pid, Req0)),
+  Name = cowboy_req:binding(name, Req0),
+  Auth = cowboy_req:binding(auth, Req0),
+  Team = binary_to_list(cowboy_req:binding(team, Req0)),
+  Action = binary_to_list(cowboy_req:binding(action, Req0)),
+  X = binary_to_list(cowboy_req:binding(x, Req0)),
+  Y = binary_to_list(cowboy_req:binding(y, Req0)),
+
+  case valid(Team, Action) of
+    true ->
+      TeamAtom = list_to_atom(Team),
+      ActionAtom = list_to_atom(Action),
+      
+      Authentication = {Name, Auth},
+      MoveInfo = {ActionAtom, TeamAtom, {list_to_integer(X), list_to_integer(Y)}},
+      PlayRes = s:s(MainDoor, {play, TablePidString, MoveInfo, Authentication}),
+      Res = io_lib:format("~p",[PlayRes]),
+      Req = cowboy_req:reply(200, #{
+              <<"content-type">> => <<"text/plain">>
+      }, Res, Req0),
+      {ok, Req, Opts};
+    BadInput -> 
+      Res = io_lib:format("~p",[BadInput]),
+      Req = cowboy_req:reply(200, #{
+          <<"content-type">> => <<"text/plain">>
+      }, Res, Req0),
+      {ok, Req, Opts}
+  end.

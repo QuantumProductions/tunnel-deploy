@@ -1,0 +1,13 @@
+% -module(info_handler).
+% -export([init/2]).
+
+% init(Req0, Opts) ->
+%   MainDoor = whereis(main_door),
+%   TablePidString = binary_to_list(cowboy_req:binding(table_pid, Req0)),
+
+%   InfoRes = s:s(MainDoor, {info, TablePidString}),
+%   Res = io_lib:format("~p",[InfoRes]),
+%   Req = cowboy_req:reply(200, #{
+%           <<"content-type">> => <<"text/plain">>
+%   }, Res, Req0),
+%   {ok, Req, Opts}.

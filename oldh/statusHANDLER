@@ -1,0 +1,14 @@
+% -module(status_handler).
+% -export([init/2]).
+
+% init(Req0, Opts) ->
+%   MainDoor = whereis(main_door),
+%   Name = cowboy_req:binding(name, Req0),
+
+%   StatusRes = s:s(MainDoor, {player_status, Name}),
+%   % todo: Refactor response
+%   Res = io_lib:format("~p",[StatusRes]),
+%   Req = cowboy_req:reply(200, #{
+%           <<"content-type">> => <<"text/plain">>
+%   }, Res, Req0),
+%   {ok, Req, Opts}.
